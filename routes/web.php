@@ -7,42 +7,56 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/admin', function () {
+    return view('admin.index');
+})->name('admin');
 
 Route::get('/', function () {
-    return view('index');
+    return view('site.index');
 })->name('home');
 
 Route::get('/about', function () {
-    return view('about');
+    return view('site.about');
 })->name('about');
 
 Route::get('/services', function () {
-    return view('services');
+    return view('site.services');
 })->name('services');
 
 Route::get('/projects', function () {
-    return view('projects');
+    return view('site.projects');
 })->name('projects');
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('site.contact');
 })->name('contact');
 
 Route::get('/login', function () {
-    return view('login');
+    return view('site.login');
 })->name('login');
 
 Route::get('/careers', function () {
-    return view('careers');
+    return view('site.careers');
 })->name('careers');
 
 Route::get('/tenders', function () {
-    return view('tenders');
+    return view('site.tenders');
 })->name('tenders');
 
 Route::get('/news', function () {
-    return view('news');
+    return view('site.news');
 })->name('news');
+
+// Service Pages
+Route::get('service-details',(function () {
+    return view('site.sub-pages.service-details');
+}))->name('services.construction');
+
+// Project Pages
+Route::prefix('projects-details')->group(function () {
+    return view('site.sub-pages.service-details');
+})->name('services.construction');
+
 
 // Service Pages
 Route::prefix('services')->group(function () {
