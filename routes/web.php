@@ -43,9 +43,15 @@ Route::get('/tenders', function () {
     return view('site.tenders');
 })->name('tenders');
 
+// مسار قائمة الأخبار الرئيسية
 Route::get('/news', function () {
     return view('site.news');
 })->name('news');
+
+// مسار تفاصيل الخبر الفرعي (عرض ثابت)
+Route::get('/news/{slug}', function ($slug) {
+    return view('site.sub-pages.news-details', ['slug' => $slug]);
+})->name('news.details');
 
 // Service Details Route
 Route::get('/services/{slug}', function ($slug) {

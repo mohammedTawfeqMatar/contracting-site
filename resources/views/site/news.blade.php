@@ -29,6 +29,10 @@
             </div>
 
             <div class="news-grid">
+                @php $news_items = [1,2,3,4,5,6]; @endphp
+                @foreach($news_items as $item)
+                @php $loop = (object)['iteration' => $item]; @endphp
+                @if($item == 1)
                 <!-- News 1 -->
                 <article class="news-card reveal" style="--delay:0ms">
                     <div class="news-image">
@@ -47,13 +51,15 @@
                             <span class="tag">صنعاء</span>
                             <span class="tag">2026</span>
                         </div>
-                        <a href="{{ route('contact') }}" class="news-link">
+                        <a href="{{ route('news.details', ['slug' => 'news-item-' . $loop->iteration]) }}" class="news-link">
                             <span>اقرأ المزيد</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </article>
+                @endif
 
+                @if($item == 2)
                 <!-- News 2 -->
                 <article class="news-card reveal" style="--delay:80ms">
                     <div class="news-image">
@@ -72,13 +78,14 @@
                             <span class="tag">إنجازات</span>
                             <span class="tag">جودة</span>
                         </div>
-                        <a href="{{ route('contact') }}" class="news-link">
+                        <a href="{{ route('news.details', ['slug' => 'news-item-' . $loop->iteration]) }}" class="news-link">
                             <span>اقرأ المزيد</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </article>
-
+                @endif
+                @if($item == 3)
                 <!-- News 3 -->
                 <article class="news-card reveal" style="--delay:160ms">
                     <div class="news-image">
@@ -97,13 +104,14 @@
                             <span class="tag">عمليات</span>
                             <span class="tag">نمو</span>
                         </div>
-                        <a href="{{ route('contact') }}" class="news-link">
+                        <a href="{{ route('news.details', ['slug' => 'news-item-' . $loop->iteration]) }}" class="news-link">
                             <span>اقرأ المزيد</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </article>
-
+                @endif
+                @if($item == 4)
                 <!-- News 4 -->
                 <article class="news-card reveal" style="--delay:240ms">
                     <div class="news-image">
@@ -122,13 +130,14 @@
                             <span class="tag">تدريب</span>
                             <span class="tag">مبادرات</span>
                         </div>
-                        <a href="{{ route('contact') }}" class="news-link">
+                        <a href="{{ route('news.details', ['slug' => 'news-item-' . $loop->iteration]) }}" class="news-link">
                             <span>اقرأ المزيد</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </article>
-
+                @endif
+                @if($item == 5)
                 <!-- News 5 -->
                 <article class="news-card reveal" style="--delay:320ms">
                     <div class="news-image">
@@ -147,13 +156,14 @@
                             <span class="tag">استدامة</span>
                             <span class="tag">ابتكار</span>
                         </div>
-                        <a href="{{ route('contact') }}" class="news-link">
+                        <a href="{{ route('news.details', ['slug' => 'news-item-' . $loop->iteration]) }}" class="news-link">
                             <span>اقرأ المزيد</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </article>
-
+                @endif
+                @if($item == 6)
                 <!-- News 6 -->
                 <article class="news-card reveal" style="--delay:400ms">
                     <div class="news-image">
@@ -172,12 +182,14 @@
                             <span class="tag">دولي</span>
                             <span class="tag">تعاون</span>
                         </div>
-                        <a href="{{ route('contact') }}" class="news-link">
+                        <a href="{{ route('news.details', ['slug' => 'news-item-' . $loop->iteration]) }}" class="news-link">
                             <span>اقرأ المزيد</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                     </div>
                 </article>
+                @endif
+                @endforeach
             </div>
         </div>
     </section>

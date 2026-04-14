@@ -44,6 +44,47 @@
             transition: transform 0.3s;
         }
         .btn-submit:hover { transform: translateY(-3px); }
+
+        /* ستايل حقل رفع الملف */
+        .file-upload-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: var(--r-md);
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--ink-s);
+        }
+        .file-upload-label:hover {
+            border-color: var(--orange);
+            background: var(--orange-subtle);
+        }
+        .file-upload-label i {
+            font-size: 20px;
+            color: var(--orange);
+        }
+        #cv_file {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        .file-name-display {
+            font-size: 14px;
+            color: var(--ink);
+            font-weight: 600;
+        }
     </style>
 @endsection
 
@@ -86,7 +127,7 @@
           </div>
 
           <div class="contact-form reveal" style="--delay:150ms">
-            <form id="advancedContactForm" action="#" method="POST">
+            <form id="advancedContactForm" action="#" method="POST" enctype="multipart/form-data">
                 @csrf
                 <h3>أرسل رسالتك</h3>
                 
@@ -128,6 +169,18 @@
                   </select>
                 </div>
 
+                <!-- حقل رفع السيرة الذاتية (يظهر فقط عند اختيار طلب توظيف) -->
+                <div class="fg" id="cv_upload_group" style="display: none; margin-bottom: 15px;">
+                  <label for="cv_file">السيرة الذاتية (PDF فقط)</label>
+                  <div class="file-upload-wrapper">
+                    <label for="cv_file" class="file-upload-label">
+                      <i class="fas fa-file-pdf"></i>
+                      <span class="file-name-display">اختر ملف PDF...</span>
+                    </label>
+                    <input type="file" id="cv_file" name="cv_file" accept=".pdf">
+                  </div>
+                </div>
+
                 <div class="fg">
                   <label for="email">البريد الإلكتروني</label>
                   <input id="email" name="email" type="email" placeholder="example@mail.com" required />
@@ -159,10 +212,23 @@
             document.getElementById('request_type').value = type;
             
             const serviceGroup = document.getElementById('service_select_group');
+            const cvGroup = document.getElementById('cv_upload_group');
+            const cvInput = document.getElementById('cv_file');
+            
+            // إظهار/إخفاء حقل الخدمات
             if (type === 'service') {
                 serviceGroup.style.display = 'block';
             } else {
                 serviceGroup.style.display = 'none';
+            }
+
+            // إظهار/إخفاء حقل السيرة الذاتية
+            if (type === 'career') {
+                cvGroup.style.display = 'block';
+                cvInput.required = true;
+            } else {
+                cvGroup.style.display = 'none';
+                cvInput.required = false;
             }
             
             const messageLabel = document.querySelector('label[for="message"]');
@@ -172,6 +238,12 @@
                 messageLabel.textContent = 'رسالتك';
             }
         });
+    });
+
+    // تحديث اسم الملف المختار في الواجهة
+    document.getElementById('cv_file').addEventListener('change', function() {
+        const fileName = this.files[0] ? this.files[0].name : 'اختر ملف PDF...';
+        document.querySelector('.file-name-display').textContent = fileName;
     });
 </script>
 @endsection
