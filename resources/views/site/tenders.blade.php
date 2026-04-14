@@ -4,7 +4,6 @@
 
 @section('styles')
 @vite(['resources/css/tenders.css'])
-    {{-- <link rel="stylesheet" href="{{ asset('css/tenders.css') }}" /> --}}
 @endsection
 
 @section('content')
@@ -105,31 +104,17 @@
                             <span class="detail-label"><i class="fas fa-calendar"></i> آخر موعد للتقديم:</span>
                             <span>30 أبريل 2026</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-file-pdf"></i> الميزانية التقريبية:</span>
-                            <span>$150,000 - $200,000</span>
-                        </div>
                     </div>
 
                     <p class="tender-desc">مناقصة لتوريد مواد البناء عالية الجودة والخرسانة الجاهزة للمشاريع السكنية الكبرى.</p>
 
-                    <div class="tender-requirements">
-                        <h4>المتطلبات:</h4>
-                        <ul>
-                            <li>شهادات الجودة والمطابقة للمواصفات الدولية</li>
-                            <li>خبرة سابقة في توريد مواد البناء</li>
-                            <li>القدرة على التسليم المنتظم والالتزام بالمواعيد</li>
-                            <li>ضمان جودة المنتجات</li>
-                        </ul>
-                    </div>
-
                     <div class="tender-actions">
-                        <a href="{{ route('contact') }}" class="tender-apply">
+                        <a href="{{ route('tenders.request', 'materials-supply') }}" class="tender-apply">
                             <span>تقديم عرض</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                         <a href="{{ route('contact') }}" class="tender-info-btn">
-                            <span>طلب المزيد من المعلومات</span>
+                            <span>طلب معلومات</span>
                             <i class="fas fa-question-circle"></i>
                         </a>
                     </div>
@@ -158,137 +143,17 @@
                             <span class="detail-label"><i class="fas fa-calendar"></i> آخر موعد للتقديم:</span>
                             <span>25 أبريل 2026</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-file-pdf"></i> الميزانية التقريبية:</span>
-                            <span>$80,000 - $120,000</span>
-                        </div>
                     </div>
 
                     <p class="tender-desc">مناقصة لأعمال الحفر والتسوية والتجهيز الأساسي للموقع قبل بدء الأعمال الإنشائية.</p>
 
-                    <div class="tender-requirements">
-                        <h4>المتطلبات:</h4>
-                        <ul>
-                            <li>معدات حفر وتسوية حديثة وفي حالة جيدة</li>
-                            <li>فريق عمل متخصص وذي خبرة</li>
-                            <li>التزام بمعايير السلامة والبيئة</li>
-                            <li>خبرة سابقة في مشاريع مماثلة</li>
-                        </ul>
-                    </div>
-
                     <div class="tender-actions">
-                        <a href="{{ route('contact') }}" class="tender-apply">
+                        <a href="{{ route('tenders.request', 'excavation-works') }}" class="tender-apply">
                             <span>تقديم عرض</span>
                             <i class="fas fa-arrow-left"></i>
                         </a>
                         <a href="{{ route('contact') }}" class="tender-info-btn">
-                            <span>طلب المزيد من المعلومات</span>
-                            <i class="fas fa-question-circle"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Tender 3 -->
-                <div class="tender-card reveal" style="--delay:160ms">
-                    <div class="tender-header">
-                        <div class="tender-info">
-                            <span class="tender-id">المناقصة #003/2026</span>
-                            <h3>أعمال الكهرباء والتوزيع</h3>
-                        </div>
-                        <span class="tender-status active">مفتوحة</span>
-                    </div>
-
-                    <div class="tender-details">
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-briefcase"></i> نوع العمل:</span>
-                            <span>أعمال متخصصة</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-map-marker-alt"></i> الموقع:</span>
-                            <span>عدن - المنطقة الصناعية</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-calendar"></i> آخر موعد للتقديم:</span>
-                            <span>28 أبريل 2026</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-file-pdf"></i> الميزانية التقريبية:</span>
-                            <span>$120,000 - $180,000</span>
-                        </div>
-                    </div>
-
-                    <p class="tender-desc">مناقصة لتنفيذ أعمال الكهرباء والتوزيع والأنظمة الكهربائية للمشروع السكني الكبير.</p>
-
-                    <div class="tender-requirements">
-                        <h4>المتطلبات:</h4>
-                        <ul>
-                            <li>شهادات مهندسين كهربائيين معتمدين</li>
-                            <li>خبرة في الأنظمة الكهربائية الحديثة</li>
-                            <li>الالتزام بالمواصفات الفنية الدولية</li>
-                            <li>تأمين شامل للعمال والمعدات</li>
-                        </ul>
-                    </div>
-
-                    <div class="tender-actions">
-                        <a href="{{ route('contact') }}" class="tender-apply">
-                            <span>تقديم عرض</span>
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                        <a href="{{ route('contact') }}" class="tender-info-btn">
-                            <span>طلب المزيد من المعلومات</span>
-                            <i class="fas fa-question-circle"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Tender 4 -->
-                <div class="tender-card reveal" style="--delay:240ms">
-                    <div class="tender-header">
-                        <div class="tender-info">
-                            <span class="tender-id">المناقصة #004/2026</span>
-                            <h3>أعمال الديكور والتشطيبات</h3>
-                        </div>
-                        <span class="tender-status closing">قريبة الإغلاق</span>
-                    </div>
-
-                    <div class="tender-details">
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-briefcase"></i> نوع العمل:</span>
-                            <span>تشطيبات وديكور</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-map-marker-alt"></i> الموقع:</span>
-                            <span>صنعاء - الشرقية</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-calendar"></i> آخر موعد للتقديم:</span>
-                            <span>20 أبريل 2026</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-file-pdf"></i> الميزانية التقريبية:</span>
-                            <span>$90,000 - $140,000</span>
-                        </div>
-                    </div>
-
-                    <p class="tender-desc">مناقصة لأعمال الديكور الداخلي والتشطيبات النهائية للمشروع السكني الفاخر.</p>
-
-                    <div class="tender-requirements">
-                        <h4>المتطلبات:</h4>
-                        <ul>
-                            <li>خبرة واسعة في الديكور والتشطيبات الفاخرة</li>
-                            <li>فريق عمل متخصص في الديكور الحديث</li>
-                            <li>معرفة بأحدث الاتجاهات والمواد</li>
-                            <li>ضمان جودة التشطيب والالتزام بالتفاصيل</li>
-                        </ul>
-                    </div>
-
-                    <div class="tender-actions">
-                        <a href="{{ route('contact') }}" class="tender-apply">
-                            <span>تقديم عرض</span>
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                        <a href="{{ route('contact') }}" class="tender-info-btn">
-                            <span>طلب المزيد من المعلومات</span>
+                            <span>طلب معلومات</span>
                             <i class="fas fa-question-circle"></i>
                         </a>
                     </div>
@@ -322,19 +187,13 @@
                 <div class="step reveal" style="--delay:160ms">
                     <div class="step-num">3</div>
                     <h3>أرسل عرضك</h3>
-                    <p>أرسل عرضك وجميع المرفقات عبر البريد الإلكتروني</p>
+                    <p>أرسل عرضك وجميع المرفقات عبر النموذج الإلكتروني</p>
                 </div>
 
                 <div class="step reveal" style="--delay:240ms">
                     <div class="step-num">4</div>
                     <h3>انتظر التقييم</h3>
                     <p>سيتم تقييم عرضك من قبل لجنة متخصصة</p>
-                </div>
-
-                <div class="step reveal" style="--delay:320ms">
-                    <div class="step-num">5</div>
-                    <h3>النتيجة</h3>
-                    <p>سيتم إخطارك بنتيجة التقييم والقرار النهائي</p>
                 </div>
             </div>
         </div>

@@ -4,7 +4,6 @@
 
 @section('styles')
 @vite(['resources/css/careers.css'])
-    {{-- <link rel="stylesheet" href="{{ asset('css/careers.css') }}" /> --}}
 @endsection
 
 @section('content')
@@ -96,7 +95,7 @@
                         <span class="skill">الإشراف الميداني</span>
                         <span class="skill">معايير الجودة</span>
                     </div>
-                    <a href="{{ route('contact') }}" class="job-apply">
+                    <a href="{{ route('careers.apply', 'senior-civil-engineer') }}" class="job-apply">
                         <span>تقديم الطلب</span>
                         <i class="fas fa-arrow-left"></i>
                     </a>
@@ -128,7 +127,7 @@
                         <span class="skill">الطاقة الشمسية</span>
                         <span class="skill">الأتمتة</span>
                     </div>
-                    <a href="{{ route('contact') }}" class="job-apply">
+                    <a href="{{ route('careers.apply', 'electrical-engineer') }}" class="job-apply">
                         <span>تقديم الطلب</span>
                         <i class="fas fa-arrow-left"></i>
                     </a>
@@ -160,7 +159,7 @@
                         <span class="skill">الصيانة الدورية</span>
                         <span class="skill">السلامة المهنية</span>
                     </div>
-                    <a href="{{ route('contact') }}" class="job-apply">
+                    <a href="{{ route('careers.apply', 'sanitary-technician') }}" class="job-apply">
                         <span>تقديم الطلب</span>
                         <i class="fas fa-arrow-left"></i>
                     </a>
@@ -192,7 +191,7 @@
                         <span class="skill">التخطيط الاستراتيجي</span>
                         <span class="skill">التواصل</span>
                     </div>
-                    <a href="{{ route('contact') }}" class="job-apply">
+                    <a href="{{ route('careers.apply', 'project-manager') }}" class="job-apply">
                         <span>تقديم الطلب</span>
                         <i class="fas fa-arrow-left"></i>
                     </a>
@@ -256,8 +255,8 @@
             <div class="cta-content reveal">
                 <h2>هل أنت مهتم بالانضمام إلينا؟</h2>
                 <p>أرسل لنا سيرتك الذاتية وتفاصيل خبرتك</p>
-                <a href="{{ route('contact') }}" class="cta-primary cta-lg">
-                    <span>تواصل معنا الآن</span>
+                <a href="#openings" class="cta-primary cta-lg">
+                    <span>استعرض الوظائف</span>
                     <i class="fas fa-arrow-left" aria-hidden="true"></i>
                 </a>
             </div>

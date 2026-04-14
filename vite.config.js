@@ -21,7 +21,9 @@ export default defineConfig({
                 'resources/css/news.css',
                 'resources/css/projects.css',
                 'resources/css/services.css',
-                'resources/css/tenders.css'
+                'resources/css/tenders.css',
+                'resources/css/service-details.css',
+                'resources/css/project-details.css'
             ],
             refresh: true,
         }),

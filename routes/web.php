@@ -47,6 +47,27 @@ Route::get('/news', function () {
     return view('site.news');
 })->name('news');
 
+// Service Details Route
+Route::get('/services/{slug}', function ($slug) {
+    return view('site.sub-pages.service-details', ['slug' => $slug]);
+})->name('services.details');
+
+// Project Details Route
+Route::get('/projects/{slug}', function ($slug) {
+    return view('site.sub-pages.project-details', ['slug' => $slug]);
+})->name('projects.details');
+
+// Job Application Route
+Route::get('/careers/apply/{job_id}', function ($job_id) {
+    return view('site.sub-pages.job-application', ['job_id' => $job_id]);
+})->name('careers.apply');
+
+// Tender Request Route
+Route::get('/tenders/request/{tender_id}', function ($tender_id) {
+    return view('site.sub-pages.tender-request', ['tender_id' => $tender_id]);
+})->name('tenders.request');
+
+
 // Service Pages
 Route::get('service-details',(function () {
     return view('site.sub-pages.service-details');

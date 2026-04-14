@@ -4,6 +4,47 @@
 
 @section('styles')
     @vite(['resources/css/contact.css'])
+    <style>
+        .contact-type-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--s4);
+            margin-bottom: var(--s6);
+        }
+        .type-option {
+            border: 2px solid #eee;
+            padding: var(--s4);
+            border-radius: var(--r-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--tf);
+        }
+        .type-option i { display: block; font-size: 24px; margin-bottom: var(--s2); color: var(--ink-s); }
+        .type-option span { font-weight: 700; font-size: var(--t-xs); }
+        
+        .type-option.active {
+            border-color: var(--orange);
+            background: var(--orange-subtle);
+        }
+        .type-option.active i { color: var(--orange); }
+        
+        .btn-submit {
+            width: 100%;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: var(--orange);
+            color: white;
+            border-radius: var(--r-md);
+            font-weight: 800;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-3px); }
+    </style>
 @endsection
 
 @section('content')
@@ -25,7 +66,7 @@
               </li>
               <li>
                 <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
-                <div><strong>الهاتف</strong><span>+967774984145</span><span>+967774984145</span></div>
+                <div><strong>الهاتف</strong><span>+967774984145</span></div>
               </li>
               <li>
                 <div class="ci-icon"><i class="fas fa-envelope"></i></div>
@@ -44,34 +85,93 @@
             </div>
           </div>
 
-          <form class="contact-form reveal" id="contactForm" style="--delay:150ms" novalidate>
-            @csrf
-            <h3>أرسل رسالتك</h3>
-            <div class="frow">
-              <div class="fg">
-                <label for="fullName">الاسم الكامل</label>
-                <input id="fullName" name="fullName" type="text" placeholder="ABDULSAMAD ALSELWI " autocomplete="name" required />
-              </div>
-              <div class="fg">
-                <label for="phone">رقم الهاتف</label>
-                <input id="phone" name="phone" type="tel" placeholder="+967774984145" autocomplete="tel" />
-              </div>
-            </div>
-            <div class="fg">
-              <label for="email">البريد الإلكتروني</label>
-              <input id="email" name="email" type="email" placeholder="alselwiabdulsamad@gmail.com" autocomplete="email" required />
-            </div>
-            <div class="fg">
-              <label for="message">رسالتك</label>
-              <textarea id="message" name="message" placeholder="أخبرنا عن مشروعك..." rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn-submit">
-              <span>إرسال الرسالة</span>
-              <i class="fas fa-paper-plane" aria-hidden="true"></i>
-            </button>
-            <p class="form-note"><i class="fas fa-lock" aria-hidden="true"></i> بياناتك محفوظة بأمان تام</p>
-          </form>
+          <div class="contact-form reveal" style="--delay:150ms">
+            <form id="advancedContactForm" action="#" method="POST">
+                @csrf
+                <h3>أرسل رسالتك</h3>
+                
+                <div class="contact-type-selector">
+                    <div class="type-option active" data-type="general">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>استفسار عام</span>
+                    </div>
+                    <div class="type-option" data-type="service">
+                        <i class="fas fa-hard-hat"></i>
+                        <span>طلب خدمة</span>
+                    </div>
+                    <div class="type-option" data-type="career">
+                        <i class="fas fa-user-tie"></i>
+                        <span>طلب توظيف</span>
+                    </div>
+                </div>
+
+                <input type="hidden" name="request_type" id="request_type" value="general">
+
+                <div class="frow">
+                  <div class="fg">
+                    <label for="fullName">الاسم الكامل</label>
+                    <input id="fullName" name="fullName" type="text" placeholder="أدخل اسمك الكامل" required />
+                  </div>
+                  <div class="fg">
+                    <label for="phone">رقم الهاتف</label>
+                    <input id="phone" name="phone" type="tel" placeholder="+967..." required />
+                  </div>
+                </div>
+
+                <div class="fg" id="service_select_group" style="display: none; margin-bottom: 15px;">
+                  <label for="service">الخدمة المطلوبة</label>
+                  <select id="service" name="service" style="width: 100%; padding: 12px; border-radius: var(--r-md); border: 1px solid #ddd;">
+                    <option value="construction">التعمير والبناء</option>
+                    <option value="architecture">الهناجر والبيوت الجاهزة</option>
+                    <option value="finishes">التشطيبات</option>
+                    <option value="other">أخرى</option>
+                  </select>
+                </div>
+
+                <div class="fg">
+                  <label for="email">البريد الإلكتروني</label>
+                  <input id="email" name="email" type="email" placeholder="example@mail.com" required />
+                </div>
+                <div class="fg">
+                  <label for="message">رسالتك</label>
+                  <textarea id="message" name="message" placeholder="أخبرنا عن طلبك..." rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                  <span>إرسال الرسالة</span>
+                  <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                </button>
+                <p class="form-note"><i class="fas fa-lock" aria-hidden="true"></i> بياناتك محفوظة بأمان تام</p>
+            </form>
+          </div>
         </div>
       </div>
     </section>
+@endsection
+
+@section('scripts')
+<script>
+    document.querySelectorAll('.type-option').forEach(option => {
+        option.addEventListener('click', function() {
+            document.querySelectorAll('.type-option').forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            
+            const type = this.getAttribute('data-type');
+            document.getElementById('request_type').value = type;
+            
+            const serviceGroup = document.getElementById('service_select_group');
+            if (type === 'service') {
+                serviceGroup.style.display = 'block';
+            } else {
+                serviceGroup.style.display = 'none';
+            }
+            
+            const messageLabel = document.querySelector('label[for="message"]');
+            if (type === 'career') {
+                messageLabel.textContent = 'نبذة عن خبراتك ومؤهلاتك';
+            } else {
+                messageLabel.textContent = 'رسالتك';
+            }
+        });
+    });
+</script>
 @endsection
