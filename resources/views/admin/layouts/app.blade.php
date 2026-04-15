@@ -171,12 +171,27 @@
     </div>
   </div>
 
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-inline">
-      نظام إدارة شركة المقاولات
+<footer class="main-footer" style="display: block; visibility: visible; clear: both; background: #fff; border-top: 1px solid #dee2e6; padding: 1rem; color: #869099;">
+    
+    <div class="float-left d-none d-sm-inline">
+        <i class="fas fa-chalkboard-teacher text-info"></i>
+        <strong style="color: #333;">إشراف:</strong> 
+        <span class="badge badge-info shadow-sm" style="font-size: 0.9rem;">أ. هدى الشيخ</span>
     </div>
-    <strong>Copyright &copy; {{ date('Y') }} <a href="#">Manus AI</a>.</strong> جميع الحقوق محفوظة.
-  </footer>
+
+    <div class="text-right">
+        <i class="fas fa-users-cog text-primary"></i>
+        <strong style="color: #333;">فريق العمل والإعداد:</strong>
+        <div class="mt-2 d-inline-block">
+            <span class="badge badge-light border shadow-sm mx-1">محمد مطر</span>
+            <span class="badge badge-light border shadow-sm mx-1">قصي</span>
+            <span class="badge badge-light border shadow-sm mx-1">أسامة</span>
+            <span class="badge badge-light border shadow-sm mx-1">محمد عبد الواحد</span>
+            <span class="badge badge-light border shadow-sm mx-1">عمر المزجاجي</span>
+            <span class="badge badge-light border shadow-sm mx-1">عبد الصمد</span>
+        </div>
+    </div>
+</footer>
 </div>
 
 <script src="{{ asset('public/admin/plugins/jquery/jquery.min.js') }}"></script>
