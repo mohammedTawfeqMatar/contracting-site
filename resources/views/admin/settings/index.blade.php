@@ -9,86 +9,91 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
         <div class="card card-info">
-            <div class="card-header">
-                <h3 class="card-title">الإعدادات العامة</h3>
-            </div>
-            <form role="form" action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
+            <div class="card-header"><h3 class="card-title">إضافة إعداد جديد</h3></div>
+            <form action="{{ route('admin.settings.store') }}" method="POST">
                 @csrf
-                @method('PUT')
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="site_name">اسم الشركة</label>
-                                <input type="text" name="site_name" class="form-control" id="site_name" placeholder="أدخل اسم الشركة">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="logo">شعار الشركة</label>
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" name="logo" class="custom-file-input" id="logo">
-                                        <label class="custom-file-label" for="logo">اختر شعاراً</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="primary_color">اللون الرئيسي</label>
-                                <input type="color" name="primary_color" class="form-control" id="primary_color">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="contact_email">البريد الإلكتروني</label>
-                                <input type="email" name="contact_email" class="form-control" id="contact_email" placeholder="أدخل البريد الإلكتروني">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="contact_phone">رقم الهاتف</label>
-                                <input type="text" name="contact_phone" class="form-control" id="contact_phone" placeholder="أدخل رقم الهاتف">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="address">العنوان</label>
-                                <textarea name="address" class="form-control" id="address" rows="3" placeholder="أدخل عنوان الشركة"></textarea>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>المفتاح</label>
+                        <input type="text" name="key" class="form-control" required>
                     </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <h5>روابط التواصل الاجتماعي</h5>
-                            <hr>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="facebook">فيسبوك</label>
-                                <input type="text" name="facebook" class="form-control" id="facebook" placeholder="رابط فيسبوك">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="twitter">تويتر</label>
-                                <input type="text" name="twitter" class="form-control" id="twitter" placeholder="رابط تويتر">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="instagram">انستجرام</label>
-                                <input type="text" name="instagram" class="form-control" id="instagram" placeholder="رابط انستجرام">
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label>القيمة</label>
+                        <textarea name="value" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>النوع</label>
+                        <select name="type" class="form-control">
+                            <option value="text">text</option>
+                            <option value="longtext">longtext</option>
+                            <option value="image">image</option>
+                            <option value="color">color</option>
+                            <option value="json">json</option>
+                            <option value="boolean">boolean</option>
+                            <option value="integer">integer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الوصف</label>
+                        <input type="text" name="description" class="form-control">
                     </div>
                 </div>
-
-                <div class="card-footer text-center">
-                    <button type="submit" class="btn btn-info px-5">حفظ كافة الإعدادات</button>
-                </div>
+                <div class="card-footer"><button class="btn btn-info">حفظ</button></div>
             </form>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card card-outline card-info">
+            <div class="card-header"><h3 class="card-title">جميع الإعدادات</h3></div>
+            <div class="card-body p-0">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>المفتاح</th>
+                            <th>القيمة</th>
+                            <th>النوع</th>
+                            <th>عمليات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($settings as $setting)
+                            <tr>
+                                <td>
+                                    <form action="{{ route('admin.settings.update', $setting) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="text" name="key" class="form-control form-control-sm" value="{{ $setting->key }}" required>
+                                </td>
+                                <td style="max-width: 260px; word-break: break-word;">
+                                        <input type="text" name="value" class="form-control form-control-sm" value="{{ $setting->value }}">
+                                </td>
+                                <td>
+                                        <select name="type" class="form-control form-control-sm">
+                                            @foreach(['text','longtext','image','color','json','boolean','integer'] as $type)
+                                                <option value="{{ $type }}" {{ $setting->type === $type ? 'selected' : '' }}>{{ $type }}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="text" name="description" class="form-control form-control-sm mt-1" value="{{ $setting->description }}" placeholder="وصف">
+                                </td>
+                                <td>
+                                        <button class="btn btn-sm btn-primary">تحديث سريع</button>
+                                    </form>
+                                    <form action="{{ route('admin.settings.destroy', $setting) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger" onclick="return confirm('تأكيد الحذف؟')">حذف</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="4" class="text-center">لا توجد إعدادات.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">{{ $settings->links() }}</div>
         </div>
     </div>
 </div>

@@ -16,6 +16,8 @@ class News extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'newsable_type',
+        'newsable_id',
         'title',
         'slug',
         'content',

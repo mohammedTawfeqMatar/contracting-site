@@ -12,6 +12,12 @@
     <div class="card-header">
         <h3 class="card-title">جميع المشاريع</h3>
         <div class="card-tools">
+            <form action="{{ route('admin.projects.index') }}" method="GET" class="d-inline-block mr-2">
+                <div class="input-group input-group-sm" style="width: 220px;">
+                    <input type="search" name="q" value="{{ $q ?? '' }}" class="form-control" placeholder="بحث...">
+                    <div class="input-group-append"><button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button></div>
+                </div>
+            </form>
             <a href="{{ route('admin.projects.create') }}" class="btn btn-warning btn-sm">
                 <i class="fas fa-plus"></i> إضافة مشروع جديد
             </a>
@@ -30,11 +36,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td colspan="6" class="text-center">لا توجد مشاريع مضافة حالياً.</td>
-                </tr>
+                @forelse($projects as $project)
+                    <tr>
+                        <td>{{ $project->id }}</td>
+                        <td>{{ $project->title }}</td>
+                        <td>{{ $project->category ?: '-' }}</td>
+                        <td>{{ $project->location ?: '-' }}</td>
+                        <td>
+                            <span class="badge {{ $project->is_published ? 'badge-success' : 'badge-secondary' }}">
+                                {{ $project->is_published ? 'منشور' : 'مسودة' }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.projects.edit', $project) }}" class="btn btn-sm btn-primary">تعديل</a>
+                            <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('تأكيد الحذف؟')">حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">لا توجد مشاريع مضافة حالياً.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
+    <div class="card-footer">{{ $projects->links() }}</div>
 </div>
 @endsection

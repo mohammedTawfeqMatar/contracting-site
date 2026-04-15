@@ -19,29 +19,45 @@
                 @csrf
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="title">اسم المشروع</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="أدخل اسم المشروع" required>
+                                <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="أدخل اسم المشروع" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="service_id">الخدمة المرتبطة</label>
+                                <select name="service_id" id="service_id" class="form-control" required>
+                                    <option value="">اختر خدمة</option>
+                                    @foreach($services as $service)
+                                        <option value="{{ $service->id }}">{{ $service->title }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="category">التصنيف</label>
-                                <input type="text" name="category" class="form-control" id="category" placeholder="مثل: سكني، تجاري">
+                                <input type="text" name="category" class="form-control" id="category" value="{{ old('category') }}" placeholder="مثل: سكني، تجاري">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="location">الموقع</label>
-                                <input type="text" name="location" class="form-control" id="location" placeholder="أدخل موقع المشروع">
+                                <input type="text" name="location" class="form-control" id="location" value="{{ old('location') }}" placeholder="أدخل موقع المشروع">
                             </div>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" class="form-control" id="slug" value="{{ old('slug') }}">
                     </div>
                     
                     <div class="form-group">
                         <label for="description">وصف المشروع</label>
-                        <textarea name="description" class="form-control" id="description" rows="8" placeholder="أدخل تفاصيل المشروع"></textarea>
+                        <textarea name="description" class="form-control" id="description" rows="8" placeholder="أدخل تفاصيل المشروع">{{ old('description') }}</textarea>
                     </div>
 
                     <div class="form-group">

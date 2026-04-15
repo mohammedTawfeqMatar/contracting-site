@@ -19,9 +19,45 @@
 <div class="wrapper">
 
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav align-items-center">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item ml-2">
+        <form action="{{ route('admin.search') }}" method="GET" class="form-inline">
+          <div class="input-group input-group-sm">
+            <input type="search" name="q" value="{{ request('q') }}" class="form-control form-control-navbar" placeholder="بحث في لوحة التحكم">
+            <div class="input-group-append">
+              <button class="btn btn-navbar" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="far fa-bell"></i>
+          @if($adminUnreadNotificationsCount > 0)
+            <span class="badge badge-danger navbar-badge">{{ $adminUnreadNotificationsCount }}</span>
+          @endif
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
+          <span class="dropdown-item dropdown-header">{{ $adminUnreadNotificationsCount }} إشعارات غير مقروءة</span>
+          <div class="dropdown-divider"></div>
+          @forelse($adminLatestNotifications as $notification)
+            <a href="{{ $notification->data['url'] ?? route('admin.notifications.index') }}" class="dropdown-item">
+              <i class="fas fa-envelope mr-2"></i> {{ $notification->data['message'] ?? 'إشعار جديد' }}
+              <span class="float-left text-muted text-sm">{{ $notification->created_at->diffForHumans() }}</span>
+            </a>
+            <div class="dropdown-divider"></div>
+          @empty
+            <span class="dropdown-item text-center text-muted">لا توجد إشعارات</span>
+            <div class="dropdown-divider"></div>
+          @endforelse
+          <a href="{{ route('admin.notifications.index') }}" class="dropdown-item dropdown-footer">عرض كل الإشعارات</a>
+        </div>
       </li>
     </ul>
   </nav>
@@ -77,6 +113,13 @@
             <a href="{{ route('admin.tenders.index') }}" class="nav-link {{ request()->routeIs('admin.tenders.*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-file-contract"></i>
               <p>المناقصات</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('admin.jobs.index') }}" class="nav-link {{ request()->routeIs('admin.jobs.*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-briefcase"></i>
+              <p>الوظائف</p>
             </a>
           </li>
 

@@ -12,7 +12,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $stats['projects'] }}</h3>
                 <p>المشاريع</p>
             </div>
             <div class="icon">
@@ -25,7 +25,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $stats['services'] }}</h3>
                 <p>الخدمات</p>
             </div>
             <div class="icon">
@@ -38,7 +38,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $stats['new_messages'] }}</h3>
                 <p>الرسائل الجديدة</p>
             </div>
             <div class="icon">
@@ -51,7 +51,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-danger">
             <div class="inner">
-                <h3>0</h3>
+                <h3>{{ $stats['active_tenders'] }}</h3>
                 <p>المناقصات النشطة</p>
             </div>
             <div class="icon">
@@ -63,10 +63,43 @@
 </div>
 
 <div class="row mt-4">
-    <div class="col-md-12 text-center py-5">
-        <img src="{{ asset('public/admin/dist/img/AdminLTELogo.png') }}" alt="Logo" class="img-fluid mb-4" style="max-height: 150px; opacity: 0.5;">
-        <h2 class="text-muted">أهلاً بك في نظام إدارة شركة المقاولات</h2>
-        <p class="text-muted">استخدم القائمة الجانبية للتنقل بين أقسام لوحة التحكم.</p>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">آخر الرسائل</h3>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    @forelse($latestContacts as $contact)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ $contact->full_name }}</span>
+                            <small class="text-muted">{{ $contact->created_at->format('Y-m-d') }}</small>
+                        </li>
+                    @empty
+                        <li class="list-group-item text-center text-muted">لا توجد رسائل حالياً.</li>
+                    @endforelse
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">آخر المشاريع</h3>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    @forelse($latestProjects as $project)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ $project->title }}</span>
+                            <small class="text-muted">{{ $project->created_at->format('Y-m-d') }}</small>
+                        </li>
+                    @empty
+                        <li class="list-group-item text-center text-muted">لا توجد مشاريع حالياً.</li>
+                    @endforelse
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

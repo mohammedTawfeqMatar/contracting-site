@@ -23,8 +23,8 @@
     <section class="service-hero">
         <div class="container">
             <span class="sec-label">انضم لفريقنا</span>
-            <h1>تقديم طلب توظيف</h1>
-            <p>نحن نبحث عن المبدعين والمتميزين للانضمام إلى عائلة يمن استيل</p>
+            <h1>تقديم طلب توظيف - {{ $job->title }}</h1>
+            <p>{{ $job->location ?: 'الموقع غير محدد' }}</p>
         </div>
     </section>
 
@@ -35,28 +35,26 @@
                     <div class="job-requirements">
                         <h3>متطلبات الوظيفة العامة</h3>
                         <ul>
-                            <li><i class="fas fa-check"></i> درجة بكالوريوس في التخصص المطلوب أو ما يعادلها.</li>
-                            <li><i class="fas fa-check"></i> خبرة عملية لا تقل عن 3 سنوات في مجال المقاولات.</li>
-                            <li><i class="fas fa-check"></i> مهارات تواصل ممتازة والقدرة على العمل ضمن فريق.</li>
-                            <li><i class="fas fa-check"></i> إجادة استخدام البرامج الهندسية والتقنية ذات الصلة.</li>
-                            <li><i class="fas fa-check"></i> الالتزام بمعايير السلامة والجودة المهنية.</li>
+                            @forelse(($job->requirements ?? []) as $requirement)
+                                <li><i class="fas fa-check"></i> {{ $requirement }}</li>
+                            @empty
+                                <li><i class="fas fa-check"></i> {{ $job->qualification ?: 'يتم تحديد المتطلبات أثناء المقابلة.' }}</li>
+                            @endforelse
                         </ul>
                     </div>
 
                     <h2>لماذا تعمل معنا؟</h2>
-                    <p class="service-description">
-                        في يمن استيل، نحن نؤمن بأن موظفينا هم رأس مالنا الحقيقي. نوفر بيئة عمل محفزة، فرصاً للتطور المهني، وحزم مكافآت تنافسية تليق بخبراتكم وإبداعاتكم.
-                    </p>
+                    <p class="service-description">{{ \Illuminate\Support\Str::limit(strip_tags($job->description), 220) }}</p>
                 </div>
 
                 <aside class="request-sidebar reveal-up" style="--delay: 200ms">
                     <div class="request-card">
                         <h3>نموذج التقديم</h3>
-                        <form action="#" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('careers.apply.store', $job) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="name">الاسم الكامل</label>
-                                <input type="text" id="name" name="name" class="form-control" required>
+                                <input type="text" id="name" name="full_name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">البريد الإلكتروني</label>
@@ -67,17 +65,12 @@
                                 <input type="tel" id="phone" name="phone" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="position">الوظيفة المستهدفة</label>
-                                <select id="position" name="position" class="form-control">
-                                    <option value="engineer">مهندس مدني</option>
-                                    <option value="architect">مهندس معماري</option>
-                                    <option value="supervisor">مشرف موقع</option>
-                                    <option value="other">أخرى</option>
-                                </select>
+                                <label for="message">نبذة مختصرة</label>
+                                <textarea id="message" name="message" class="form-control"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="cv">السيرة الذاتية (PDF)</label>
-                                <input type="file" id="cv" name="cv" class="form-control" accept=".pdf">
+                                <input type="file" id="cv" name="cv_file" class="form-control" accept=".pdf" required>
                             </div>
                             <button type="submit" class="cta-primary" style="width: 100%; justify-content: center;">
                                 <span>إرسال الطلب</span>

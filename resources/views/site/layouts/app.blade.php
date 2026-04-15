@@ -33,6 +33,20 @@
     @include('site.partials.header')
 
     <main>
+        @if(session('success'))
+            <div class="container" style="margin-top: 20px;">
+                <div style="background:#1f7a1f;color:#fff;padding:12px 16px;border-radius:8px;">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+        @if($errors->any())
+            <div class="container" style="margin-top: 20px;">
+                <div style="background:#8b1d1d;color:#fff;padding:12px 16px;border-radius:8px;">
+                    {{ $errors->first() }}
+                </div>
+            </div>
+        @endif
         @yield('content')
     </main>
 

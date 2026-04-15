@@ -20,7 +20,12 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="title">عنوان الصفحة</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="أدخل عنوان الصفحة" required>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="أدخل عنوان الصفحة" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="slug">الرابط المختصر (slug)</label>
+                        <input type="text" name="slug" class="form-control" id="slug" value="{{ old('slug') }}" placeholder="يتم توليده تلقائياً إذا تركته فارغاً">
                     </div>
                     
                     <div class="form-group">
@@ -35,7 +40,7 @@
 
                     <div class="form-group">
                         <label for="content">محتوى الصفحة</label>
-                        <textarea name="content" class="form-control" id="content" rows="15" placeholder="أدخل محتوى الصفحة (HTML/Text)"></textarea>
+                        <textarea name="content" class="form-control" id="content" rows="15" placeholder="أدخل محتوى الصفحة (HTML/Text)">{{ old('content') }}</textarea>
                     </div>
 
                     <div class="form-check">

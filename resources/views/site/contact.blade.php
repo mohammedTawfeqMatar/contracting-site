@@ -103,15 +103,15 @@
             <ul class="ci-list" role="list">
               <li>
                 <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div><strong>العنوان</strong><span>صنعاء — شارع القيادة، مقابل جامعة العلوم والتكنولوجيا</span></div>
+                <div><strong>العنوان</strong><span>{{ $siteSettings['contact_address'] ?? 'صنعاء — اليمن' }}</span></div>
               </li>
               <li>
                 <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
-                <div><strong>الهاتف</strong><span>+967774984145</span></div>
+                <div><strong>الهاتف</strong><span>{{ $siteSettings['contact_phone'] ?? '+967000000000' }}</span></div>
               </li>
               <li>
                 <div class="ci-icon"><i class="fas fa-envelope"></i></div>
-                <div><strong>البريد الإلكتروني</strong><span>alselwiabdulsamad@gmail.com</span></div>
+                <div><strong>البريد الإلكتروني</strong><span>{{ $siteSettings['contact_email'] ?? 'info@example.com' }}</span></div>
               </li>
               <li>
                 <div class="ci-icon"><i class="fas fa-clock"></i></div>
@@ -127,7 +127,7 @@
           </div>
 
           <div class="contact-form reveal" style="--delay:150ms">
-            <form id="advancedContactForm" action="#" method="POST" enctype="multipart/form-data">
+            <form id="advancedContactForm" action="{{ route('contact.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <h3>أرسل رسالتك</h3>
                 
@@ -151,7 +151,7 @@
                 <div class="frow">
                   <div class="fg">
                     <label for="fullName">الاسم الكامل</label>
-                    <input id="fullName" name="fullName" type="text" placeholder="أدخل اسمك الكامل" required />
+                    <input id="fullName" name="full_name" type="text" placeholder="أدخل اسمك الكامل" required />
                   </div>
                   <div class="fg">
                     <label for="phone">رقم الهاتف</label>
@@ -162,10 +162,11 @@
                 <div class="fg" id="service_select_group" style="display: none; margin-bottom: 15px;">
                   <label for="service">الخدمة المطلوبة</label>
                   <select id="service" name="service" style="width: 100%; padding: 12px; border-radius: var(--r-md); border: 1px solid #ddd;">
-                    <option value="construction">التعمير والبناء</option>
-                    <option value="architecture">الهناجر والبيوت الجاهزة</option>
-                    <option value="finishes">التشطيبات</option>
-                    <option value="other">أخرى</option>
+                    @forelse($services as $service)
+                        <option value="{{ $service->title }}">{{ $service->title }}</option>
+                    @empty
+                        <option value="general">خدمة عامة</option>
+                    @endforelse
                   </select>
                 </div>
 
@@ -214,12 +215,15 @@
             const serviceGroup = document.getElementById('service_select_group');
             const cvGroup = document.getElementById('cv_upload_group');
             const cvInput = document.getElementById('cv_file');
+            const serviceInput = document.getElementById('service');
             
             // إظهار/إخفاء حقل الخدمات
             if (type === 'service') {
                 serviceGroup.style.display = 'block';
+                serviceInput.setAttribute('name', 'service_requested');
             } else {
                 serviceGroup.style.display = 'none';
+                serviceInput.setAttribute('name', 'service');
             }
 
             // إظهار/إخفاء حقل السيرة الذاتية

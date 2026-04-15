@@ -24,7 +24,7 @@
         <div class="container">
             <span class="sec-label">المناقصات والعقود</span>
             <h1>تقديم عرض مناقصة</h1>
-            <p>بوابة الشركاء والموردين لتقديم العروض الفنية والمالية</p>
+            <p>{{ $tender->title }}</p>
         </div>
     </section>
 
@@ -35,17 +35,15 @@
                     <div class="tender-info">
                         <h3>تفاصيل المناقصة المختارة</h3>
                         <div class="tender-meta">
-                            <span>رقم المناقصة: <strong>YS-2024-00{{ rand(1,9) }}</strong></span>
-                            <span>تاريخ الإغلاق: <strong>30 مايو 2024</strong></span>
-                            <span>نوع العمل: <strong>توريد مواد بناء</strong></span>
-                            <span>الموقع: <strong>صنعاء - المقر الرئيسي</strong></span>
+                            <span>المعرف: <strong>#{{ $tender->id }}</strong></span>
+                            <span>تاريخ الإغلاق: <strong>{{ optional($tender->closing_date)->format('Y-m-d H:i') }}</strong></span>
+                            <span>نوع العمل: <strong>{{ $tender->work_type ?: '-' }}</strong></span>
+                            <span>الموقع: <strong>{{ $tender->location ?: '-' }}</strong></span>
                         </div>
                     </div>
 
                     <h2>تعليمات تقديم العروض</h2>
-                    <p class="service-description">
-                        يرجى التأكد من إرفاق كافة المستندات المطلوبة، بما في ذلك السجل التجاري، البطاقة الضريبية، والعرض الفني والمالي المفصل. يجب أن تكون جميع الملفات بصيغة PDF ولا يتجاوز حجم الملف الواحد 10 ميجابايت.
-                    </p>
+                    <p class="service-description">{!! nl2br(e($tender->description)) !!}</p>
 
                     <div class="achievements-list">
                         <div class="achievement-item">
@@ -62,27 +60,27 @@
                 <aside class="request-sidebar reveal-up" style="--delay: 200ms">
                     <div class="request-card">
                         <h3>نموذج تقديم العرض</h3>
-                        <form action="#" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('tenders.request.store', $tender) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
-                                <label for="company">اسم الشركة / المورد</label>
-                                <input type="text" id="company" name="company" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contact_person">اسم الشخص المسؤول</label>
-                                <input type="text" id="contact_person" name="contact_person" class="form-control" required>
+                                <label for="company">اسم الشركة / المسؤول</label>
+                                <input type="text" id="company" name="full_name" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">رقم التواصل</label>
                                 <input type="tel" id="phone" name="phone" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="proposal">العرض الفني والمالي (PDF)</label>
-                                <input type="file" id="proposal" name="proposal" class="form-control" accept=".pdf" required>
+                                <label for="email">البريد الإلكتروني</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="notes">ملاحظات إضافية</label>
-                                <textarea id="notes" name="notes" class="form-control" placeholder="أي تفاصيل أخرى تود إضافتها..."></textarea>
+                                <label for="proposal">العرض الفني والمالي (PDF)</label>
+                                <input type="file" id="proposal" name="proposal_file" class="form-control" accept=".pdf">
+                            </div>
+                            <div class="form-group">
+                                <label for="notes">تفاصيل العرض</label>
+                                <textarea id="notes" name="message" class="form-control" placeholder="أي تفاصيل أخرى تود إضافتها..." required></textarea>
                             </div>
                             <button type="submit" class="cta-primary" style="width: 100%; justify-content: center;">
                                 <span>إرسال العرض</span>

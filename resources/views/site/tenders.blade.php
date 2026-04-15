@@ -7,209 +7,41 @@
 @endsection
 
 @section('content')
-    <!-- ═══ TENDERS HERO ═══ -->
-    <section class="tenders-hero">
-        <div class="container">
-            <div class="hero-content reveal">
-                <span class="sec-label">فرص العمل</span>
-                <h1>مناقصات وفرص تعاقد</h1>
-                <p>فرص تعاقدية مع شركة يمن استيل للمقاولات والبناء للموردين والمقاولين من الباطن</p>
-                <a href="#current-tenders" class="cta-primary">
-                    <span>استعرض المناقصات</span>
-                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                </a>
-            </div>
+<section class="tenders-hero">
+    <div class="container">
+        <div class="hero-content reveal">
+            <span class="sec-label">المناقصات</span>
+            <h1>فرص تعاقدية متاحة</h1>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ═══ TENDER GUIDELINES ═══ -->
-    <section class="guidelines section-py">
-        <div class="container">
-            <div class="sec-head reveal">
-                <span class="sec-label">شروط المشاركة</span>
-                <h2>متطلبات تقديم العروض</h2>
-                <p>تعرف على الشروط والمتطلبات الأساسية للمشاركة في مناقصاتنا</p>
-            </div>
-
-            <div class="guidelines-grid">
-                <div class="guideline-card reveal" style="--delay:0ms">
-                    <div class="gc-num">01</div>
-                    <h3>التسجيل والترخيص</h3>
-                    <p>يجب أن تكون الشركة مسجلة رسمياً ولديها جميع التراخيص والموافقات اللازمة.</p>
-                </div>
-
-                <div class="guideline-card reveal" style="--delay:80ms">
-                    <div class="gc-num">02</div>
-                    <h3>الخبرة والكفاءة</h3>
-                    <p>إثبات خبرة سابقة في مجال التخصص مع مراجع من عملاء سابقين.</p>
-                </div>
-
-                <div class="guideline-card reveal" style="--delay:160ms">
-                    <div class="gc-num">03</div>
-                    <h3>الموارد المالية</h3>
-                    <p>توفر الموارد المالية والقدرة على تنفيذ العقد بكفاءة.</p>
-                </div>
-
-                <div class="guideline-card reveal" style="--delay:240ms">
-                    <div class="gc-num">04</div>
-                    <h3>المعدات والآليات</h3>
-                    <p>توفر المعدات والآليات اللازمة لتنفيذ الأعمال المطلوبة.</p>
-                </div>
-
-                <div class="guideline-card reveal" style="--delay:320ms">
-                    <div class="gc-num">05</div>
-                    <h3>الكوادر الفنية</h3>
-                    <p>توفر فريق فني متخصص وذي خبرة في المجال.</p>
-                </div>
-
-                <div class="guideline-card reveal" style="--delay:400ms">
-                    <div class="gc-num">06</div>
-                    <h3>السلامة والجودة</h3>
-                    <p>الالتزام بمعايير السلامة والجودة الدولية.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CURRENT TENDERS ═══ -->
-    <section id="current-tenders" class="current-tenders section-py">
-        <div class="container">
-            <div class="sec-head reveal">
-                <span class="sec-label">المناقصات الحالية</span>
-                <h2>فرص تعاقدية متاحة</h2>
-                <p>استعرض المناقصات المتاحة حالياً والتواريخ النهائية للتقديم</p>
-            </div>
-
-            <div class="tenders-list">
-                <!-- Tender 1 -->
-                <div class="tender-card reveal" style="--delay:0ms">
+<section id="current-tenders" class="current-tenders section-py">
+    <div class="container">
+        <div class="tenders-list">
+            @forelse($tenders as $tender)
+                <div class="tender-card reveal">
                     <div class="tender-header">
                         <div class="tender-info">
-                            <span class="tender-id">المناقصة #001/2026</span>
-                            <h3>توريد مواد البناء والخرسانة</h3>
+                            <h3>{{ $tender->title }}</h3>
                         </div>
-                        <span class="tender-status active">مفتوحة</span>
+                        <span class="tender-status {{ $tender->status === 'open' ? 'active' : '' }}">{{ $tender->status }}</span>
                     </div>
-
                     <div class="tender-details">
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-briefcase"></i> نوع العمل:</span>
-                            <span>توريد مواد</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-map-marker-alt"></i> الموقع:</span>
-                            <span>صنعاء - ضواحي المدينة</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-calendar"></i> آخر موعد للتقديم:</span>
-                            <span>30 أبريل 2026</span>
-                        </div>
+                        <div class="detail-row"><span class="detail-label">نوع العمل:</span><span>{{ $tender->work_type ?: '-' }}</span></div>
+                        <div class="detail-row"><span class="detail-label">الموقع:</span><span>{{ $tender->location ?: '-' }}</span></div>
+                        <div class="detail-row"><span class="detail-label">آخر موعد:</span><span>{{ optional($tender->closing_date)->format('Y-m-d H:i') }}</span></div>
                     </div>
-
-                    <p class="tender-desc">مناقصة لتوريد مواد البناء عالية الجودة والخرسانة الجاهزة للمشاريع السكنية الكبرى.</p>
-
+                    <p class="tender-desc">{{ \Illuminate\Support\Str::limit(strip_tags($tender->description), 140) }}</p>
                     <div class="tender-actions">
-                        <a href="{{ route('tenders.request', 'materials-supply') }}" class="tender-apply">
-                            <span>تقديم عرض</span>
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                        <a href="{{ route('contact') }}" class="tender-info-btn">
-                            <span>طلب معلومات</span>
-                            <i class="fas fa-question-circle"></i>
-                        </a>
+                        <a href="{{ route('tenders.request', $tender->id) }}" class="tender-apply"><span>تقديم عرض</span></a>
                     </div>
                 </div>
-
-                <!-- Tender 2 -->
-                <div class="tender-card reveal" style="--delay:80ms">
-                    <div class="tender-header">
-                        <div class="tender-info">
-                            <span class="tender-id">المناقصة #002/2026</span>
-                            <h3>أعمال الحفر والتسوية</h3>
-                        </div>
-                        <span class="tender-status active">مفتوحة</span>
-                    </div>
-
-                    <div class="tender-details">
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-briefcase"></i> نوع العمل:</span>
-                            <span>أعمال إنشائية</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-map-marker-alt"></i> الموقع:</span>
-                            <span>تعز - منطقة التطوير</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="detail-label"><i class="fas fa-calendar"></i> آخر موعد للتقديم:</span>
-                            <span>25 أبريل 2026</span>
-                        </div>
-                    </div>
-
-                    <p class="tender-desc">مناقصة لأعمال الحفر والتسوية والتجهيز الأساسي للموقع قبل بدء الأعمال الإنشائية.</p>
-
-                    <div class="tender-actions">
-                        <a href="{{ route('tenders.request', 'excavation-works') }}" class="tender-apply">
-                            <span>تقديم عرض</span>
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                        <a href="{{ route('contact') }}" class="tender-info-btn">
-                            <span>طلب معلومات</span>
-                            <i class="fas fa-question-circle"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @empty
+                <p>لا توجد مناقصات منشورة حالياً.</p>
+            @endforelse
         </div>
-    </section>
-
-    <!-- ═══ SUBMISSION PROCESS ═══ -->
-    <section class="submission-process section-py">
-        <div class="container">
-            <div class="sec-head reveal">
-                <span class="sec-label">العملية</span>
-                <h2>خطوات تقديم العرض</h2>
-                <p>اتبع هذه الخطوات البسيطة لتقديم عرضك</p>
-            </div>
-
-            <div class="process-steps">
-                <div class="step reveal" style="--delay:0ms">
-                    <div class="step-num">1</div>
-                    <h3>اختر المناقصة</h3>
-                    <p>اختر المناقصة التي تناسب تخصصك وإمكانياتك</p>
-                </div>
-
-                <div class="step reveal" style="--delay:80ms">
-                    <div class="step-num">2</div>
-                    <h3>اجمع المستندات</h3>
-                    <p>جهز جميع المستندات والشهادات المطلوبة</p>
-                </div>
-
-                <div class="step reveal" style="--delay:160ms">
-                    <div class="step-num">3</div>
-                    <h3>أرسل عرضك</h3>
-                    <p>أرسل عرضك وجميع المرفقات عبر النموذج الإلكتروني</p>
-                </div>
-
-                <div class="step reveal" style="--delay:240ms">
-                    <div class="step-num">4</div>
-                    <h3>انتظر التقييم</h3>
-                    <p>سيتم تقييم عرضك من قبل لجنة متخصصة</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ CTA SECTION ═══ -->
-    <section class="tenders-cta section-py">
-        <div class="container">
-            <div class="cta-content reveal">
-                <h2>هل لديك استفسارات؟</h2>
-                <p>تواصل معنا للحصول على معلومات إضافية حول المناقصات</p>
-                <a href="{{ route('contact') }}" class="cta-primary cta-lg">
-                    <span>تواصل معنا الآن</span>
-                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
-    </section>
+        <div style="margin-top: 20px;">{{ $tenders->links() }}</div>
+    </div>
+</section>
 @endsection

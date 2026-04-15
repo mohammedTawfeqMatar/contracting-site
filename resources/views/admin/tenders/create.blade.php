@@ -22,31 +22,36 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="title">عنوان المناقصة</label>
-                                <input type="text" name="title" class="form-control" id="title" placeholder="أدخل عنوان المناقصة" required>
+                                <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="أدخل عنوان المناقصة" required>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="work_type">نوع العمل</label>
-                                <input type="text" name="work_type" class="form-control" id="work_type" placeholder="مثل: أعمال مدنية">
+                                <input type="text" name="work_type" class="form-control" id="work_type" value="{{ old('work_type') }}" placeholder="مثل: أعمال مدنية">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="closing_date">تاريخ الإغلاق</label>
-                                <input type="datetime-local" name="closing_date" class="form-control" id="closing_date" required>
+                                <input type="datetime-local" name="closing_date" class="form-control" id="closing_date" value="{{ old('closing_date') }}" required>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" class="form-control" id="slug" value="{{ old('slug') }}">
                     </div>
                     
                     <div class="form-group">
                         <label for="location">موقع العمل</label>
-                        <input type="text" name="location" class="form-control" id="location" placeholder="أدخل موقع العمل">
+                        <input type="text" name="location" class="form-control" id="location" value="{{ old('location') }}" placeholder="أدخل موقع العمل">
                     </div>
 
                     <div class="form-group">
                         <label for="description">وصف المناقصة وشروطها</label>
-                        <textarea name="description" class="form-control" id="description" rows="10" placeholder="أدخل تفاصيل وشروط المناقصة"></textarea>
+                        <textarea name="description" class="form-control" id="description" rows="10" placeholder="أدخل تفاصيل وشروط المناقصة">{{ old('description') }}</textarea>
                     </div>
 
                     <div class="row">

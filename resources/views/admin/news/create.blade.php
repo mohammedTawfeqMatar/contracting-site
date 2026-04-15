@@ -20,17 +20,27 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="title">عنوان الخبر</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="أدخل عنوان الخبر" required>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="أدخل عنوان الخبر" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" class="form-control" id="slug" value="{{ old('slug') }}">
                     </div>
                     
                     <div class="form-group">
                         <label for="category">التصنيف</label>
-                        <input type="text" name="category" class="form-control" id="category" placeholder="أدخل التصنيف">
+                        <input type="text" name="category" class="form-control" id="category" value="{{ old('category') }}" placeholder="أدخل التصنيف">
                     </div>
 
                     <div class="form-group">
                         <label for="content">محتوى الخبر</label>
-                        <textarea name="content" class="form-control" id="content" rows="10" placeholder="أدخل محتوى الخبر"></textarea>
+                        <textarea name="content" class="form-control" id="content" rows="10" placeholder="أدخل محتوى الخبر">{{ old('content') }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="published_at">تاريخ ووقت النشر</label>
+                        <input type="datetime-local" name="published_at" class="form-control" id="published_at" value="{{ old('published_at') }}">
                     </div>
 
                     <div class="form-group">

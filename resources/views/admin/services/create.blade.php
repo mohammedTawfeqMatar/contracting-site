@@ -20,12 +20,32 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="title">اسم الخدمة</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="أدخل اسم الخدمة" required>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="أدخل اسم الخدمة" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" class="form-control" id="slug" value="{{ old('slug') }}">
                     </div>
                     
                     <div class="form-group">
                         <label for="description">وصف الخدمة</label>
-                        <textarea name="description" class="form-control" id="description" rows="10" placeholder="أدخل وصفاً تفصيلياً للخدمة"></textarea>
+                        <textarea name="description" class="form-control" id="description" rows="10" placeholder="أدخل وصفاً تفصيلياً للخدمة">{{ old('description') }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="icon">الأيقونة (Font Awesome)</label>
+                                <input type="text" name="icon" class="form-control" id="icon" value="{{ old('icon') }}" placeholder="fas fa-city">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="sort_order">ترتيب الظهور</label>
+                                <input type="number" name="sort_order" class="form-control" id="sort_order" value="{{ old('sort_order', 0) }}">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">

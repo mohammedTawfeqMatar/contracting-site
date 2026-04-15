@@ -12,6 +12,12 @@
     <div class="card-header">
         <h3 class="card-title">جميع الصفحات</h3>
         <div class="card-tools">
+            <form action="{{ route('admin.pages.index') }}" method="GET" class="d-inline-block mr-2">
+                <div class="input-group input-group-sm" style="width: 220px;">
+                    <input type="search" name="q" value="{{ $q ?? '' }}" class="form-control" placeholder="بحث...">
+                    <div class="input-group-append"><button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button></div>
+                </div>
+            </form>
             <a href="{{ route('admin.pages.create') }}" class="btn btn-secondary btn-sm">
                 <i class="fas fa-plus"></i> إضافة صفحة جديدة
             </a>
@@ -30,11 +36,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td colspan="6" class="text-center">لا توجد صفحات مضافة حالياً.</td>
-                </tr>
+                @forelse($pages as $page)
+                    <tr>
+                        <td>{{ $page->id }}</td>
+                        <td>{{ $page->title }}</td>
+                        <td>{{ $page->slug }}</td>
+                        <td>{{ $page->template }}</td>
+                        <td>
+                            <span class="badge {{ $page->is_published ? 'badge-success' : 'badge-secondary' }}">
+                                {{ $page->is_published ? 'منشورة' : 'مسودة' }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.pages.edit', $page) }}" class="btn btn-sm btn-primary">تعديل</a>
+                            <form action="{{ route('admin.pages.destroy', $page) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('تأكيد الحذف؟')">حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">لا توجد صفحات مضافة حالياً.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
+    <div class="card-footer">{{ $pages->links() }}</div>
 </div>
 @endsection

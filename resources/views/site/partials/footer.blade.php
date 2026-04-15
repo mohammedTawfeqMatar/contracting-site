@@ -4,10 +4,10 @@
         <div class="footer-top">
             <div class="footer-brand">
                 <a href="{{ route('home') }}" class="footer-logo">
-                    <span class="logo-name"> يمن <em> استيل</em></span>
-                    <img src="{{ asset('building.png') }}" alt="">
+                    <span class="logo-name">{{ $siteSettings['site_name'] ?? 'يمن' }} <em>{{ $siteSettings['site_name_suffix'] ?? 'استيل' }}</em></span>
+                    <img src="{{ !empty($siteSettings['site_logo']) ? asset('storage/' . $siteSettings['site_logo']) : asset('building.png') }}" alt="">
                 </a>
-                <p>شركة رائدة في مجال المقاولات والبناء والتعمير بأعلى معايير الجودة في اليمن.</p>
+                <p>{{ $siteSettings['footer_about'] ?? 'شركة رائدة في مجال المقاولات والبناء والتعمير بأعلى معايير الجودة في اليمن.' }}</p>
                 <img src="{{ asset('imag/ymen.jpg') }}" alt="صورة الشركة" class="company-image" />
             </div>
             <nav class="footer-nav" aria-label="روابط سريعة">
@@ -25,18 +25,18 @@
             </nav>
             <div class="footer-contact">
                 <h4>تواصل معنا</h4>
-                <a href="tel:+967774984145" class="fc-link"><i class="fas fa-phone-alt"></i>+967774984145</a>
-                <a href="mailto:alselwiabdulsamad@gmail.com" class="fc-link"><i class="fas fa-envelope"></i>alselwiabdulsamad@gmail.com</a>
+                <a href="tel:{{ $siteSettings['contact_phone'] ?? '+967774984145' }}" class="fc-link"><i class="fas fa-phone-alt"></i>{{ $siteSettings['contact_phone'] ?? '+967774984145' }}</a>
+                <a href="mailto:{{ $siteSettings['contact_email'] ?? 'info@example.com' }}" class="fc-link"><i class="fas fa-envelope"></i>{{ $siteSettings['contact_email'] ?? 'info@example.com' }}</a>
                 <div class="social-links" aria-label="تواصل اجتماعي">
-                    <a href="https://www.facebook.com/abdul.samad.othman.al.selwiy" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://x.com/Abdulsamad27664" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.instagram.com/alseleiy?igsh=MTFubHdtcmZ0bmp2cg==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://t.me/yourusername" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="{{ $siteSettings['facebook_url'] ?? '#' }}" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="{{ $siteSettings['twitter_url'] ?? '#' }}" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="{{ $siteSettings['instagram_url'] ?? '#' }}" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ $siteSettings['telegram_url'] ?? '#' }}" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 يمن استيل للمقاولات. جميع الحقوق محفوظة.</p>
+            <p>© {{ date('Y') }} {{ $siteSettings['copyright_name'] ?? 'يمن استيل للمقاولات' }}. جميع الحقوق محفوظة.</p>
             <a href="#home" class="back-top" aria-label="العودة لأعلى"><i class="fas fa-chevron-up"></i></a>
         </div>
     </div>

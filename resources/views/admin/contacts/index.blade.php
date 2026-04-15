@@ -11,6 +11,14 @@
 <div class="card card-outline card-primary">
     <div class="card-header">
         <h3 class="card-title">قائمة الرسائل والطلبات</h3>
+        <div class="card-tools">
+            <form action="{{ route('admin.contacts.index') }}" method="GET" class="d-inline-block">
+                <div class="input-group input-group-sm" style="width: 220px;">
+                    <input type="search" name="q" value="{{ $q ?? '' }}" class="form-control" placeholder="بحث...">
+                    <div class="input-group-append"><button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button></div>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -27,12 +35,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colspan="7" class="text-center py-4">لا توجد رسائل جديدة حالياً.</td>
-                    </tr>
+                    @forelse($contacts as $contact)
+                        <tr>
+                            <td>{{ $contact->full_name }}</td>
+                            <td>{{ $contact->email }}</td>
+                            <td>{{ $contact->phone }}</td>
+                            <td>{{ $contact->request_type }}</td>
+                            <td>{{ $contact->status }}</td>
+                            <td>{{ $contact->created_at->format('Y-m-d H:i') }}</td>
+                            <td>
+                                <a href="{{ route('admin.contacts.show', $contact) }}" class="btn btn-sm btn-primary">عرض</a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="text-center py-4">لا توجد رسائل جديدة حالياً.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
+    <div class="card-footer">{{ $contacts->links() }}</div>
 </div>
 @endsection

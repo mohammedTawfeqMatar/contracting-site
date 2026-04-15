@@ -12,6 +12,12 @@
     <div class="card-header">
         <h3 class="card-title">جميع المناقصات</h3>
         <div class="card-tools">
+            <form action="{{ route('admin.tenders.index') }}" method="GET" class="d-inline-block mr-2">
+                <div class="input-group input-group-sm" style="width: 220px;">
+                    <input type="search" name="q" value="{{ $q ?? '' }}" class="form-control" placeholder="بحث...">
+                    <div class="input-group-append"><button class="btn btn-outline-secondary"><i class="fas fa-search"></i></button></div>
+                </div>
+            </form>
             <a href="{{ route('admin.tenders.create') }}" class="btn btn-danger btn-sm">
                 <i class="fas fa-plus"></i> إضافة مناقصة جديدة
             </a>
@@ -30,11 +36,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td colspan="6" class="text-center">لا توجد مناقصات مضافة حالياً.</td>
-                </tr>
+                @forelse($tenders as $tender)
+                    <tr>
+                        <td>{{ $tender->id }}</td>
+                        <td>{{ $tender->title }}</td>
+                        <td>{{ $tender->work_type ?: '-' }}</td>
+                        <td>{{ optional($tender->closing_date)->format('Y-m-d H:i') }}</td>
+                        <td>{{ $tender->status }}</td>
+                        <td>
+                            <a href="{{ route('admin.tenders.edit', $tender) }}" class="btn btn-sm btn-primary">تعديل</a>
+                            <form action="{{ route('admin.tenders.destroy', $tender) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('تأكيد الحذف؟')">حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">لا توجد مناقصات مضافة حالياً.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
+    <div class="card-footer">{{ $tenders->links() }}</div>
 </div>
 @endsection

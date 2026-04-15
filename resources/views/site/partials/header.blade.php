@@ -1,8 +1,8 @@
 <header id="navbar" class="site-header" role="banner">
     <div class="container header-inner">
         <a href="{{ route('home') }}" class="logo" aria-label="يمن استيل">
-            <span class="logo-name"> يمن <em> استيل</em></span>
-            <img src="{{ asset('building.png') }}" alt="">
+            <span class="logo-name">{{ $siteSettings['site_name'] ?? 'يمن' }} <em>{{ $siteSettings['site_name_suffix'] ?? 'استيل' }}</em></span>
+            <img src="{{ !empty($siteSettings['site_logo']) ? asset('storage/' . $siteSettings['site_logo']) : asset('building.png') }}" alt="">
         </a>
 
         <nav class="nav" aria-label="التنقل الرئيسي">
@@ -24,6 +24,13 @@
             </ul>
             <div class="nav-overlay" data-nav-overlay></div>
         </nav>
+
+        <form action="{{ route('search') }}" method="GET" style="display:flex;align-items:center;gap:8px;">
+            <input type="search" name="q" value="{{ request('q') }}" placeholder="ابحث في الموقع..." style="padding:8px 10px;border-radius:8px;border:1px solid #ddd;">
+            <button type="submit" style="padding:8px 10px;border:none;border-radius:8px;background:#f58220;color:#fff;">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
 
         <a href="{{ route('contact') }}#contact" class="btn-quote">
             <span>عرض سعر</span>
